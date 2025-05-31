@@ -8,6 +8,7 @@ static const char* TAG = "SENSOR";
 static float calibration_factor = 1.0f;
 static long offset_val = 0;
 static uint8_t sensor_read_time = 1;
+static float known_weight_value = 10000.0f; // default value
 
 static int32_t raw_val = 0;
 static float units_val = 0.0f;
@@ -80,10 +81,18 @@ esp_err_t sensor_tare_process(void) {
 
 esp_err_t sensor_calibration_init(void) {
     // check and set known weight value
+    return ESP_FAIL;
 }
 
-esp_err_t sensor_calibration_input(float known_weight_val) {}
+esp_err_t sensor_calibration_input(float known_weight_val) {
+    // save nvs
+    return ESP_FAIL;
+}
 
-esp_err_t sensor_sleep_mode(void) {}
+esp_err_t sensor_sleep_mode(void) {
+    return ESP_FAIL;
+}
 
-esp_err_t sensor_wakeup_mode(void) {}
+esp_err_t sensor_wakeup_mode(void) {
+    return ESP_FAIL;
+}
