@@ -1,0 +1,12 @@
+idf_component_register(SRCS "main.c"
+                            "task/main_task.c"
+                            "task/loadcell_task.c"
+                            "task/oled_task.c"
+                            "task/comm_task.c"
+                            "sensors/sesor.c"
+                            "storage/nvs_interface.c"
+                    INCLUDE_DIRS "."
+                    "task"
+                    "sensors"
+                    "storage"
+                    )
