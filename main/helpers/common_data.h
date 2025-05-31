@@ -71,8 +71,7 @@ typedef enum {
 // struct yang dikirim
 typedef struct {
   int64_t raw_val;
-  float filtered_val;
-  float known_weight;
+  float filtered_val; // bisa jadi known_weight jika calibration
 } weight_t;
 
 // pesan yang dikirim ke device B
@@ -104,5 +103,33 @@ typedef struct {
   const char* line_3;
   const char* line_4;
 } oled_data_t;
+
+// main_to_comm_data
+// JIKA device A memberikan command,
+// maka tercipta transaction_id baru dan msg_type adalah COMMAND_MSG
+// JIKA device A menerima command,
+// maka akan mengembalikan transaction_id dari device B
+// memberikan msg_type RESPONSE_MSG
+// jika proses berhasil maka akan mengembalikan is_return TRUE, otherwise FALSE
+// Diluar itu maka device A akan mengirim COMMON_MSG
+typedef struct {
+  uint8_t transaction_id;
+  msg_type_t msg_type;
+  bool is_return;
+  weight_t weight_data;
+  cmd_t command;
+} main_to_comm_t;
+
+// comm_to_main_data
+// Jika device B memberikan command,
+// maka transaction_id harus ada dan command juga ada
+// Jika device B memberikan response,
+// maka is_return harus ada
+typedef struct {
+  uint8_t transaction_id;
+  msg_type_t msg_type;
+  bool is_return;
+  cmd_t command;
+} comm_to_main_t;
 
 #endif
