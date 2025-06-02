@@ -9,6 +9,6 @@ extern calibration_state_t calibration_state;
 
 extern QueueHandle_t main_to_oled_queue;
 
-static void oled_task_init(void);
+void oled_task_init(void);
 
 #endif // OLED_TASK_H

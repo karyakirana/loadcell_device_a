@@ -7,7 +7,7 @@ static const char* TAG = "SENSOR";
 
 static float calibration_factor = 1.0f;
 static long offset_val = 0;
-static uint8_t sensor_read_time = 1;
+static uint8_t sensor_read_time = 10;
 static float known_weight_value = 10000.0f; // default value
 
 static int32_t raw_val = 0;
@@ -21,8 +21,20 @@ static void filtered_weight(void);
 
 void sensor_init(void) {
 
+    // nvs init
+    app_nvs_init();
+
     // check offset from nvs
+    if (app_nvs_get_int32(TAG, "offset", &offset_val) != ESP_OK) {
+        ESP_LOGW(TAG, "GET offset_val from NVS failed");
+        offset_val = 0;
+    }
+
     // check calibration_factor from nvs
+    if (app_nvs_get_float(TAG, "calibration_factor", &calibration_factor) != ESP_OK) {
+        ESP_LOGW(TAG, "GET calibration_factor from NVS failed");
+        calibration_factor = 1.0f;
+    }
 
     hx711_config_t hx711_config = {
         .dout_pin = HX711_DOUT_PIN,
@@ -37,7 +49,7 @@ void sensor_init(void) {
 
 void sensor_update(void) {
     // update val
-    raw_val = hx711_wrapper_read_raw();
+    raw_val = hx711_wrapper_get_averages(sensor_read_time); // read raw
     units_val = hx711_wrapper_get_units(sensor_read_time);
 }
 

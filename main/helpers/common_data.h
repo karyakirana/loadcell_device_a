@@ -13,7 +13,8 @@ typedef enum {
   SLEEP_MODE,
   DEEPSLEEP_MODE,
   WAKEUP_MODE,
-  ERROR_MODE
+  ERROR_MODE,
+  MAIN_STATE
 } main_state_t;
 
 typedef enum {
@@ -23,7 +24,8 @@ typedef enum {
   CAL_WAITING,
   CAL_INPUT_MODE,
   CAL_CONFIRMATION_MODE,
-  CAL_ERROR_MODE
+  CAL_ERROR_MODE,
+  CAL_STATE
 } calibration_state_t;
 
 typedef enum {
@@ -45,6 +47,7 @@ typedef enum {
 typedef enum {
   CMD_IDLE,
   CMD_NORMAL,
+  CMD_TARE_NORMAL,
   CMD_CALIBRATION,
   CMD_CAL_INIT,
   CMD_CAL_LOAD_WEIGHTS,
@@ -55,7 +58,8 @@ typedef enum {
   CMD_SLEEP,
   CMD_DEEPSLEEP,
   CMD_WAKEUP,
-  CMD_ERROR
+  CMD_ERROR,
+  CMD_NONE
 } cmd_t;
 
 // command state
@@ -72,6 +76,7 @@ typedef enum {
 typedef struct {
   int64_t raw_val;
   float filtered_val; // bisa jadi known_weight jika calibration
+  float known_weight_val;
 } weight_t;
 
 // pesan yang dikirim ke device B
@@ -98,11 +103,25 @@ typedef struct {
 
 // oled_data
 typedef struct {
-  const char* line_1;
-  const char* line_2;
-  const char* line_3;
-  const char* line_4;
+  const char* line_1; // processing
+  const char* line_2; // weight
+  const char* line_3; // weight
+  const char* line_4; // rcv data
 } oled_data_t;
+
+typedef struct {
+  uint8_t transaction_id;
+  cmd_t command;
+} loadcell_recv_data_t;
+
+typedef struct {
+  uint8_t transaction_id;
+  int64_t raw_val;
+  float units_val;
+  float filtered_val;
+  float known_weight_val;
+  bool is_success;
+} loadcell_data_t;
 
 // main_to_comm_data
 // JIKA device A memberikan command,

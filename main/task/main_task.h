@@ -8,6 +8,7 @@ extern QueueHandle_t comm_to_main_queue;
 extern QueueHandle_t main_to_comm_queue;
 extern QueueHandle_t main_to_oled_queue;
 extern QueueHandle_t loadcell_to_main_queue;
+extern QueueHandle_t main_to_loadcell_queue;
 
 void main_task_init(void);
 

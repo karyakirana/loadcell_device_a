@@ -76,6 +76,11 @@ long hx711_wrapper_read_raw(void) {
   return scale.read();
 }
 
+long hx711_wrapper_get_averages(int times) {
+  if (times <= 0) times = 1;
+  return scale.read_average(times);
+}
+
 float hx711_wrapper_get_units(int times) {
   if (times <= 0) times = 1;
   return scale.get_units(times);

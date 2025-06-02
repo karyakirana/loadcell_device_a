@@ -66,6 +66,13 @@ long hx711_wrapper_read_raw(void);
  * @param times Jumlah pembacaan rata-rata (default 1).
  * @return Nilai berat dalam unit yang dikalibrasi.
  */
+long hx711_wrapper_get_averages(int times);
+
+/**
+ * @brief Membaca nilai berat setelah apply scale dan offset.
+ * @param times Jumlah pembacaan rata-rata (default 1).
+ * @return Nilai berat dalam unit yang dikalibrasi.
+ */
 float hx711_wrapper_get_units(int times);
 
 /**

@@ -13,6 +13,8 @@
   "files.associations": {
     "string.h": "c",
     "string": "cpp",
-    "format": "cpp"
+    "format": "cpp",
+    "tuple": "cpp",
+    "oled_task.h": "c"
   }
 }
